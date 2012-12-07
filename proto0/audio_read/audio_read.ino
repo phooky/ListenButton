@@ -57,13 +57,18 @@ void setup() {
 
 bool state = false;
 
+void writeByte(uint32_t b) {
+    Serial.write(b);
+}
+
 extern "C" {
 // ADC0 interrupt vector is 0x0098, vector 38, irq 22, ipr reg # 5
 void adc0_isr(void)
 {
   volatile uint32_t result = ADC0_RA;
-  digitalWrite(led, state?LOW:HIGH);
-  state = !state;
+  //digitalWrite(led, state?LOW:HIGH);
+  //state = !state;
+  writeByte(result);
 }
 }
 
